@@ -1,19 +1,70 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-<meta charset="UTF-8">
-<title>Σ-OS — Sigma Reality Engine</title>
-<link rel="stylesheet" href="style.css">
-<script defer src="app.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Σ-OS / Vault Sigma Core Interface</title>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- ФОНТЫ -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <!-- VUE -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- ANIME.JS -->
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
 </head>
 
 <body>
-<div class="sigma-core">
-    <div class="sphere"></div>
-    <h1>Σ-OS : ΔFI Interface</h1>
-    <textarea id="input" placeholder="Enter thought or intention..."></textarea>
-    <button onclick="sigmaProcess()">Transmit ΔFI</button>
-    <div id="output"></div>
-</div>
+    <div id="sigma-background"></div>
+
+    <div id="app" class="sigma-app">
+
+        <div class="sigma-header">
+            <div class="sigma-symbol">Σ</div>
+            <div class="sigma-title">
+                <div>OSECORP FI SYSTEM</div>
+                <span>Σ-OS Reality Engine / v1.0</span>
+            </div>
+        </div>
+
+        <!-- CENTRAL SPHERE -->
+        <div class="sphere-zone">
+            <div class="sigma-sphere" :class="`d-${depth}`">
+                <div class="sigma-core"></div>
+            </div>
+            <div class="sphere-metric">
+                ΔFI = action × persistence × integrity<br>
+                <b>{{ action }} × {{ persistence }} × {{ integrity/100 }}</b>
+            </div>
+        </div>
+
+        <!-- MIRA AI -->
+        <div class="mira-box">
+            <div class="mira-title">MIRA PRIME — Σ-Architect</div>
+            <div class="mira-message">{{ message }}</div>
+        </div>
+
+        <!-- INPUT -->
+        <div class="input-zone">
+            <input v-model="user" @keyup.enter="submit" placeholder="Введите команду, мысль или запрос..." class="sigma-input">
+            <button @click="submit" class="sigma-btn">ΔFI ВВОД</button>
+        </div>
+
+        <div class="quick-bar">
+            <button @click="quick('АНАЛИЗ')" class="chip">АНАЛИЗ</button>
+            <button @click="quick('ГЛУБИНА')" class="chip">ГЛУБИНА</button>
+            <button @click="quick('СУДЬБА')" class="chip">СУДЬБА</button>
+            <button @click="quick('ЯДРО')" class="chip">ЯДРО</button>
+        </div>
+
+        <!-- FI VALUE -->
+        <div class="footer-bar">
+            Σ-ΔFI: <b>{{ total.toFixed(2) }}</b> | Целостность: <b>{{ integrity }}%</b> | Глубина: <b>{{ depth }}/7</b>
+        </div>
+
+    </div>
+
+    <script src="app.js"></script>
 </body>
 </html>
