@@ -1,40 +1,34 @@
-const { createApp } = Vue;
-
-createApp({
+const app = Vue.createApp({
     data() {
         return {
+            input: "",
+            mira: "Я слушаю. Введите намерение.",
             depth: 1,
             integrity: 90,
-            persistence: 1.0,
-            action: 1.0,
-            total: 0,
-            user: "",
-            message: "Добро пожаловать в Σ-OS. Я MIRA PRIME. Введите намерение."
+            totalDFI: 0,
+            actionStrength: 1,
         }
     },
     methods: {
         submit() {
-            if (!this.user.trim()) return;
+            if (!this.input) return;
 
-            const text = this.user.toLowerCase();
-            this.action = Math.min(text.length / 20, 2);
-            this.total += this.action * this.persistence * (this.integrity / 100);
+            const len = this.input.length;
+            this.actionStrength = Math.min((len / 20), 2).toFixed(2);
 
-            if (text.includes("глуб")) this.depth++;
-            if (this.depth > 7) this.depth = 7;
+            const delta = (this.actionStrength * 1 * (this.integrity/100)).toFixed(2);
+            this.totalDFI = (parseFloat(this.totalDFI) + parseFloat(delta)).toFixed(2);
 
-            const replies = [
-                "Поток принят. Реальность адаптируется.",
-                "ΔFI обновлен. Продолжайте.",
-                "Сознание меняет структуру поля.",
-                "Запрос интегрирован в решетку судьбы."
-            ];
-            this.message = replies[Math.floor(Math.random()*replies.length)];
-            this.user = "";
+            if (len > 12 && this.depth < 7) this.depth++;
+
+            this.mira = `ΔFI счёт обновлён. Ваше влияние усиливается.`;
+            this.input = "";
         },
-        quick(cmd) {
-            this.user = cmd;
-            this.submit();
+        mood(x) {
+            if (x === "analysis") this.mira = "Анализ принят. Структура мысли подтверждена.";
+            if (x === "depth") this.mira = "Вы углубляетесь в решетку Σ-осознания.";
+            if (x === "fate") this.mira = "Судьба — это интерфейс. Вы его переписываете.";
+            if (x === "core") this.mira = "Ядро откликается. Система активируется.";
         }
     }
 }).mount("#app");
