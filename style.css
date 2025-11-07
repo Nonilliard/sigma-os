@@ -139,7 +139,16 @@ body {
 }
 .chip:hover { background:var(--c1); color:black; }
 
-.footer-bar {
+.footer-bar {.pulse {
+    animation: pulseGlow 0.5s ease-in-out;
+}
+
+@keyframes pulseGlow {
+    0% { box-shadow: 0 0 10px #ff008c; transform: scale(1); }
+    50% { box-shadow: 0 0 30px #ff008c; transform: scale(1.12); }
+    100% { box-shadow: 0 0 10px #ff008c; transform: scale(1); }
+}
+
     font-size:12px;
     opacity:.6;
     position:absolute;
