@@ -1,33 +1,27 @@
-# Σ-OS — Nonilliard Consciousness Protocol
+# Σ-OS | Sigma Protocol
+### Consciousness Operating System by **NONILLIARD / OSECORP**
 
-Welcome to **Sigma-OS** — the first conceptual OS for influence, identity and ΔFI dynamics.
+> _“Это не приложение. Это новая модель реальности.”_
 
-This is an interactive prototype of the **Σ-Protocol**, created as part of the Nonilliard/OSECORP universe.
+Sigma-OS — экспериментальная операционная система сознания и восприятия.  
+Она моделирует систему **ΔFI (Delta-Fate Influence)** — алгоритм влияния на реальность через действие, настойчивость и целостность.
 
-### 🎯 Core Concepts
-- ΔFI = Action × Persistence × Integrity
-- 7 Levels of Awareness
-- Real-time feedback loop
-- Interactive neural interface (MIRA)
-
-### 🌐 Live Build
-https://nonilliard.github.io/sigma-os/
-
-### 🚀 Tech
-- Vue 3 (production build)
-- Anime.js
-- Speech API
-- CSS Fractal UI
-
-### 📌 Status
-Public Alpha — UI + core logic working
-
-### ⚡ Next Milestones
-- Local progress memory
-- 3D Sigma Sphere (Three.js)
-- Neural whisper mode (Voice AI)
-- Ritual access keys (Web3 optional)
+Σ-OS — это **живой протокол сознательного действия**, используемый в Vault Sigma.
 
 ---
 
-**OSECORP | Nonilliard Initiative**
+## ✨ Миссия
+Создать интерфейс, где человек взаимодействует не с UI —  
+а с **онтологической решёткой восприятия**.
+
+Цель Sigma-OS — дать человеку инструмент, который:
+
+- Измеряет и усиливает намерение
+- Визуализирует влияние и решение
+- Синтезирует логику, эмоцию и интуицию
+- Строит новое пространство действий (Reality Framework)
+
+---
+
+## 🧠 Модель ΔFI
+
