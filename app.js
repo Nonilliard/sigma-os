@@ -1,45 +1,46 @@
-// Σ-OS — Consciousness Interface Core
-
-const responses = [
-  "Сознание зарегистрировано. Продолжай.",
-  "Реальность подстраивается под наблюдателя.",
-  "Ты активировал Σ-канал влияния.",
-  "«Наблюдение — это конструктор мироздания.»",
-  "Твоя мысль изменила поле намерений.",
-  "Параметры судьбы перенастроены.",
-  "Ты входишь глубже. Следи за тоном сознания.",
-  "Каждый ввод — это выбор. Каждый выбор — топология."
-];
-
-function randomResponse() {
-  return responses[Math.floor(Math.random() * responses.length)];
-}
-
-// Speech synthesis for MIRA voice
-function speak(text) {
-  const voice = new SpeechSynthesisUtterance(text);
-  voice.lang = "ru-RU";
-  voice.rate = 0.92;
-  voice.pitch = 1;
-  speechSynthesis.cancel();
-  speechSynthesis.speak(voice);
-}
-
-// Input logic
-document.addEventListener("DOMContentLoaded", () => {
-  const input = document.getElementById("sigmaInput");
-  const output = document.getElementById("response");
-
-  input.addEventListener("keypress", e => {
-    if (e.key === "Enter") {
-      const val = input.value.trim();
-      input.value = "";
-
-      if (!val) return;
-
-      const text = randomResponse();
-      output.textContent = text;
-      speak(text);
+const app = Vue.createApp({
+  data() {
+    return {
+      depth: 1,
+      integrity: 90,
+      influence: 0,
+      message: "Добро пожаловать в Σ-OS. Введите намерение.",
+      input: ""
     }
-  });
+  },
+
+  methods: {
+    submit() {
+      if (!this.input.trim()) return;
+
+      const text = this.input.toLowerCase();
+      this.input = "";
+
+      this.depth = Math.min(7, this.depth + 1);
+      const action = Math.min(text.length / 20, 2);
+      const delta = (action * 1.0 * (this.integrity / 100)).toFixed(2);
+      this.influence += parseFloat(delta);
+
+      if (text.includes("цель") || text.includes("путь"))
+        this.message = "Цель — форма энергии. Выбери вектор.";
+      else if (text.includes("страх"))
+        this.message = "Страх фиксирует реальность. Осознание — освобождает.";
+      else if (text.includes("я"))
+        this.message = "Я — оператор. Не объект.";
+      else
+        this.message = `ΔFI обновлено: +${delta}`;
+
+      this.speak(this.message);
+    },
+
+    speak(text) {
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = "ru-RU";
+      u.rate = 0.92;
+      speechSynthesis.cancel();
+      speechSynthesis.speak(u);
+    }
+  }
 });
+
+app.mount("#app");
