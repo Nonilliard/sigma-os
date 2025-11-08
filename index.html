@@ -1,56 +1,158 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Σ-OS — Consciousness Protocol</title>
+    <title>Σ-Protocol / Vault Sigma — Онтологическое Погружение</title>
 
-    <meta name="description" content="Σ-Protocol — OS for influence, ΔFI, and cognitive architecture. Nonilliard project.">
-    <meta property="og:title" content="Σ-OS — Nonilliard Protocol">
-    <meta property="og:description" content="Consciousness Operating System prototype by Nonilliard.">
-    <meta property="og:type" content="website">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500&display=swap" rel="stylesheet">
 
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22><text y=%22.9em%22 font-size=%2248%22>Σ</text></svg>">
-
+    <!-- Styles -->
     <link rel="stylesheet" href="style.css">
 
-    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+    <!-- Vue -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
 </head>
-
 <body>
-<div id="app">
-    <header class="top-bar">
-        <div class="logo">Σ-OS</div>
-        <div class="stats">
-            <span>Глубина: {{ depth }}/7</span>
-            <span>Целостность: {{ integrity }}%</span>
-            <span>ΣΔFI: {{ influence }}</span>
+
+    <!-- Background lattice -->
+    <div id="sigma-lattice" class="lattice-layer"></div>
+
+    <!-- App -->
+    <div id="app" class="app-container">
+
+        <!-- Status Panel -->
+        <div class="status-panel">
+            <div class="protocol-header">
+                <div class="sigma-glyph">Σ</div>
+                <div class="protocol-info">
+                    <div class="protocol-name">OSECORP FI STANDARD</div>
+                    <div class="protocol-version">v1.0 ΔFI-Protocol</div>
+                </div>
+            </div>
+
+            <div class="system-metrics">
+                <div class="metric">
+                    <span class="metric-label">ГЛУБИНА:</span>
+                    <span class="metric-value">{{ depthLevel }}/7</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">ЦЕЛОСТНОСТЬ:</span>
+                    <span class="metric-value">{{ integrity }}%</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">ΣΔFI:</span>
+                    <span class="metric-value">{{ totalInfluence }}</span>
+                </div>
+            </div>
         </div>
-    </header>
 
-    <main class="core">
-        <div class="sphere" :class="'d'+depth">
-            <div class="core-glow"></div>
+        <!-- Sphere -->
+        <div class="central-sphere-container">
+            <div class="sigma-sphere" :class="`depth-${depthLevel}`">
+                <div class="sphere-core" :style="coreStyle"></div>
+                <div class="sphere-rings">
+                    <div class="ring ring-1"></div>
+                    <div class="ring ring-2"></div>
+                    <div class="ring ring-3"></div>
+                </div>
+                <div class="sphere-text">
+                    ΔFI = A×P×I<br>
+                    <span class="formula-values">{{ currentAction }}×{{ persistence }}×{{ integrity/100 }}</span>
+                </div>
+            </div>
         </div>
 
-        <div class="dialog">
-            <div class="mira-label">MIRA PRIME</div>
-            <div class="mira-box">{{ message }}</div>
+        <!-- Dialog -->
+        <div class="dialog-system">
+            <div class="mira-entity">
+                <div class="entity-header">
+                    <span class="entity-name">MIRA PRIME</span>
+                    <span class="entity-role">Σ-Architect Interface</span>
+                </div>
+                <div class="entity-message" :class="messageType">
+                    {{ miraMessage }}
+                </div>
+            </div>
 
-            <input 
-              id="sigma-input"
-              name="sigma-input"
-              v-model="input"
-              @keyup.enter="submit"
-              placeholder="Введите команду..."
-            >
-
-            <button @click="submit">ΔFI →</button>
+            <div class="user-input-section">
+                <div class="input-group">
+                    <input 
+                        v-model="userInput" 
+                        placeholder="Введите ваш ответ или команду..."
+                        @keyup.enter="processInput"
+                        :disabled="isProcessing"
+                        class="quantum-input"
+                        id="quantum-command"
+                        name="quantum-command"
+                    >
+                    <button @click="processInput" :disabled="isProcessing" class="quantum-button">
+                        {{ isProcessing ? 'ОБРАБОТКА...' : 'ВВОД ΔFI' }}
+                    </button>
+                </div>
+                
+                <div class="quick-actions">
+                    <button 
+                        v-for="action in quickActions" 
+                        :key="action.id"
+                        @click="selectQuickAction(action)"
+                        class="action-chip"
+                        :class="{ active: selectedAction === action.id }"
+                    >
+                        {{ action.label }}
+                    </button>
+                </div>
+            </div>
         </div>
-    </main>
-</div>
 
-<script src="app.js"></script>
+        <!-- Lattice -->
+        <div class="lattice-visualization">
+            <div class="nodes-container">
+                <div 
+                    v-for="node in visibleNodes" 
+                    :key="node.id"
+                    class="lattice-node"
+                    :class="`size-${node.size} type-${node.type}`"
+                    :style="nodeStyle(node)"
+                    @click="selectNode(node)"
+                >
+                    <div class="node-label">{{ node.label }}</div>
+                    <div class="node-value">ΔFI {{ node.value }}</div>
+                </div>
+            </div>
+            
+            <div class="connections-container">
+                <svg class="connections-svg">
+                    <path 
+                        v-for="connection in visibleConnections" 
+                        :key="connection.id"
+                        :d="connection.path"
+                        class="connection-line"
+                        :class="`strength-${connection.strength}`"
+                    />
+                </svg>
+            </div>
+        </div>
+
+        <!-- Audio -->
+        <div class="audio-controls">
+            <button @click="toggleAudio" class="audio-button">
+                {{ audioEnabled ? '🔊' : '🔇' }}
+            </button>
+            <button @click="speakMessage" class="voice-button">
+                🔊 ОЗВУЧИТЬ
+            </button>
+        </div>
+
+    </div>
+
+    <!-- JS libs -->
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+
+    <!-- App JS -->
+    <script src="app.js"></script>
+
 </body>
 </html>
