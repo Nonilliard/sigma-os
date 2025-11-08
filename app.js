@@ -1,51 +1,45 @@
-const app = Vue.createApp({
-    data() {
-        return {
-            input: "",
-            output: [],
-            fi: 0,
-            depth: 1,
-            integrity: 90,
-            miraMessage: "Добро пожаловать в Σ-OS. Я MIRA PRIME. Введите намерение.",
-            pulse: false,
-        };
-    },
+// Σ-OS — Consciousness Interface Core
 
-    methods: {
-        send() {
-            if (!this.input.trim()) return;
+const responses = [
+  "Сознание зарегистрировано. Продолжай.",
+  "Реальность подстраивается под наблюдателя.",
+  "Ты активировал Σ-канал влияния.",
+  "«Наблюдение — это конструктор мироздания.»",
+  "Твоя мысль изменила поле намерений.",
+  "Параметры судьбы перенастроены.",
+  "Ты входишь глубже. Следи за тоном сознания.",
+  "Каждый ввод — это выбор. Каждый выбор — топология."
+];
 
-            const userInput = this.input;
-            this.output.push({ role: "user", text: userInput });
+function randomResponse() {
+  return responses[Math.floor(Math.random() * responses.length)];
+}
 
-            this.animateAI();
+// Speech synthesis for MIRA voice
+function speak(text) {
+  const voice = new SpeechSynthesisUtterance(text);
+  voice.lang = "ru-RU";
+  voice.rate = 0.92;
+  voice.pitch = 1;
+  speechSynthesis.cancel();
+  speechSynthesis.speak(voice);
+}
 
-            setTimeout(() => {
-                const response = this.processInput(userInput);
-                this.output.push({ role: "ai", text: response });
-                this.miraMessage = response;
-            }, 700); // задержка как у настоящего ИИ
+// Input logic
+document.addEventListener("DOMContentLoaded", () => {
+  const input = document.getElementById("sigmaInput");
+  const output = document.getElementById("response");
 
-            this.input = "";
-        },
+  input.addEventListener("keypress", e => {
+    if (e.key === "Enter") {
+      const val = input.value.trim();
+      input.value = "";
 
-        processInput(text) {
-            let score = Math.random() * 0.1;
-            this.fi += score;
-            this.depth++;
-            if (this.depth > 7) this.depth = 7;
+      if (!val) return;
 
-            return `Намерение принято: «${text}». 
-Синхронизация с Σ-полем… 
-ΔFI растёт: ${this.fi.toFixed(4)} 
-Глубина: ${this.depth}/7`;
-        },
-
-        animateAI() {
-            this.pulse = true;
-            setTimeout(() => this.pulse = false, 500);
-        }
+      const text = randomResponse();
+      output.textContent = text;
+      speak(text);
     }
+  });
 });
-
-app.mount("#app");
