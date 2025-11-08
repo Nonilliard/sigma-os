@@ -1,73 +1,88 @@
-:root {
-  --glow: #00ffc8;
-  --pulse: #ff007a;
-  --bg: #000014;
-  --text: #e6fff9;
-}
-
-* {
-  margin: 0; padding: 0;
-  box-sizing: border-box;
-  font-family: "Orbitron", sans-serif;
-}
-
 body {
-  background: var(--bg);
-  color: var(--text);
-  height: 100vh;
+  margin: 0; 
+  background: #000014;
+  font-family: Arial, sans-serif;
+  color: #00ffc8;
+}
+
+.top-bar {
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  background: rgba(0,255,200,0.05);
+  border-bottom: 1px solid #00ffc8;
+}
+
+.logo { font-weight: bold; }
+
+.stats span {
+  margin-left: 12px;
+  font-size: 0.9em;
+  opacity: 0.8;
+}
+
+.core {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+  height: calc(100vh - 60px);
 }
 
-/* Sigma core container */
-.sigma-core {
-  text-align: center;
-  width: 90%;
-  max-width: 480px;
-}
-
-/* Living sphere */
 .sphere {
-  width: 180px;
-  height: 180px;
-  margin: 0 auto 30px;
+  width: 160px;
+  height: 160px;
   border-radius: 50%;
-  background: radial-gradient(circle, var(--glow) 10%, transparent 60%);
-  box-shadow: 0 0 30px var(--glow), inset 0 0 40px var(--glow);
-  animation: sigmaPulse 4s infinite ease-in-out;
+  box-shadow: 0 0 30px #00ffc8;
+  margin-bottom: 30px;
+  position: relative;
 }
 
-@keyframes sigmaPulse {
-  0% { transform: scale(1); box-shadow: 0 0 30px var(--glow); }
-  50% { transform: scale(1.12); box-shadow: 0 0 70px var(--pulse); }
-  100% { transform: scale(1); box-shadow: 0 0 30px var(--glow); }
+.core-glow {
+  width: 50%;
+  height: 50%;
+  background: #ff008c;
+  border-radius: 50%;
+  position: absolute;
+  top: 25%; left: 25%;
+  animation: pulse 2.5s infinite;
 }
 
-/* Input prompt */
-.sigma-input {
-  width: 100%;
-  padding: 12px 15px;
-  background: transparent;
-  border: 1px solid var(--glow);
-  color: var(--text);
-  font-size: 16px;
+@keyframes pulse {
+  0% { transform: scale(1); opacity: .7; }
+  100% { transform: scale(1.25); opacity: 1; }
+}
+
+.dialog {
+  width: 90%;
+  max-width: 420px;
   text-align: center;
-  border-radius: 6px;
-  outline: none;
-  margin-bottom: 20px;
 }
 
-.sigma-input:focus {
-  border-color: var(--pulse);
-  box-shadow: 0 0 10px var(--pulse);
+.mira-label { font-size: 0.85em; opacity: .6; }
+
+.mira-box {
+  border: 1px solid #00ffc8;
+  padding: 12px;
+  min-height: 60px;
+  margin: 10px 0;
+  background: rgba(0,255,200,0.06);
 }
 
-/* Response text */
-.response {
-  font-size: 15px;
-  opacity: 0.9;
-  min-height: 40px;
-  margin-top: 10px;
-  line-height: 1.4;
+input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #00ffc8;
+  background: black;
+  color: #00ffc8;
+  margin-bottom: 10px;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background: #00ffc8;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
 }
