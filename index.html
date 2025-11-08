@@ -1,32 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Σ-OS | Nonilliard</title>
-<link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Σ-OS — Consciousness Protocol</title>
+
+    <meta name="description" content="Σ-Protocol — OS for influence, ΔFI, and cognitive architecture. Nonilliard project.">
+    <meta property="og:title" content="Σ-OS — Nonilliard Protocol">
+    <meta property="og:description" content="Consciousness Operating System prototype by Nonilliard.">
+    <meta property="og:type" content="website">
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22><text y=%22.9em%22 font-size=%2248%22>Σ</text></svg>">
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
 </head>
 
 <body>
 <div id="app">
+    <header class="top-bar">
+        <div class="logo">Σ-OS</div>
+        <div class="stats">
+            <span>Глубина: {{ depth }}/7</span>
+            <span>Целостность: {{ integrity }}%</span>
+            <span>ΣΔFI: {{ influence }}</span>
+        </div>
+    </header>
 
-<div class="sigma-core">
-    <div class="sphere"></div>
-    
-    <input 
-      type="text" 
-      v-model="inputText" 
-      @keyup.enter="submitIntent" 
-      placeholder="Enter intention..."
-      class="sigma-input"
-    />
+    <main class="core">
+        <div class="sphere" :class="'d'+depth">
+            <div class="core-glow"></div>
+        </div>
 
-    <div class="response">{{ response }}</div>
+        <div class="dialog">
+            <div class="mira-label">MIRA PRIME</div>
+            <div class="mira-box">{{ message }}</div>
+
+            <input 
+              id="sigma-input"
+              name="sigma-input"
+              v-model="input"
+              @keyup.enter="submit"
+              placeholder="Введите команду..."
+            >
+
+            <button @click="submit">ΔFI →</button>
+        </div>
+    </main>
 </div>
 
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.min.js"></script>
-<script src="main.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
